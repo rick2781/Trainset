@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import rick.trainset.Domain.Model.User;
 import rick.trainset.Presentation.AuthActivities.SingInActivity.SignInActivity;
 import rick.trainset.Presentation.HomeActivity.HomeActivity;
@@ -41,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @BindView(R.id.password)
     EditText etPassword;
 
+    @BindView(R.id.company)
+    EditText etCompany;
+
     Context context = RegisterActivity.this;
 
     RegisterPresenter presenter;
@@ -50,6 +54,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        ButterKnife.bind(this);
+
+        presenter = new RegisterPresenter(this);
+
+        registerNewUserListener();
     }
 
     public void registerNewUserListener() {
@@ -58,26 +67,27 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
             @Override
             public void onClick(View view) {
 
-                registerNewUser();
+                checkUserInput();
             }
         });
 
     }
 
-    // First step for user registration
-    public void registerNewUser() {
+    // Check user input and pass data for the user creation
+    public void checkUserInput() {
 
         String name = etName.getText().toString();
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
+        String company = etCompany.getText().toString();
 
         if (!presenter.isStringNull(name) && !presenter.isStringNull(email) &&
-                !presenter.isStringNull(password)) {
+                !presenter.isStringNull(password) && !presenter.isStringNull(company)) {
 
             if (presenter.checkEmail(email, context) || presenter.checkPassword(password, context)) {
 
 //                showProgress();
-                registerNewAccount(name, email, password);
+                registerNewAccount(name, email, password, company);
             }
 
         } else {
@@ -86,44 +96,33 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         }
     }
 
-    // Gather information to register user on database and send verification email
-    public void registerNewAccount(final String name, final String email, String password) {
+    // Create new user to Firebase Authentication System
+    public void registerNewAccount(final String name, final String email, String password, final String company) {
 
         Injection.getAuthInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (!task.isSuccessful()) {
+
                             Toast.makeText(context, getString(R.string.account_creation_fail),
                                     Toast.LENGTH_SHORT).show();
 
                         } else if (task.isSuccessful()) {
 
-                            Injection.getAuthInstance().sendVerificationEmail();
+                            presenter.sendVerificationEmail();
+
                             Toast.makeText(context, getString(R.string.account_creation_success),
                                     Toast.LENGTH_SHORT).show();
 
-                            addUserDatabase(name, email);
+                            presenter.addUserDatabase(name, email, company);
 
                             Intent intent = new Intent(context, SignInActivity.class);
                             startActivity(intent);
                         }
                     }
                 });
-    }
-
-    public void addUserDatabase(String name, String email) {
-
-        User user = new User(name, email);
-
-        repository.setUser(user, mContext);
-
-        UserAccountSettings userAccountSettings = new UserAccountSettings(
-                "none",
-                name,
-                "none");
-
-        repository.setUserAccountSettings(userAccountSettings, mContext);
     }
 }
