@@ -10,7 +10,7 @@ import rick.trainset.R;
  * Created by Rick on 1/28/2018.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginContract.View {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,5 +18,4 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
     }
-
 }

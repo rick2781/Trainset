@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".Presentation.AuthActivities.SingInActivity.SignInActivity" />
+        <activity android:name=".Presentation.AuthActivities.LoginActivity.LoginActivity" />
+        <activity android:name=".Presentation.AuthActivities.RegisterActivity.RegisterActivity" />
+
     </application>
 
 </manifest>
