@@ -7,5 +7,5 @@
     <string name="invalid_password">Your password needs to have at least 6 characters</string>
     <string name="invalid_email">Email not valid!</string>
     <string name="account_creation_fail"> Failed to create an account with this email. Try again later!</string>
-    <string name="account_creation_success"> Your account has been successfully created!</string>
+    <string name="account_creation_success"> Your account has been successfully created! Please check your email in order to confirm your account.</string>
 </resources>

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,7 +69,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 checkUserInput();
             }
         });
-
     }
 
     // Check user input and pass data for the user creation
@@ -84,10 +82,19 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         if (!presenter.isStringNull(name) && !presenter.isStringNull(email) &&
                 !presenter.isStringNull(password) && !presenter.isStringNull(company)) {
 
-            if (presenter.checkEmail(email, context) || presenter.checkPassword(password, context)) {
+            if (presenter.checkEmail(email) || presenter.checkPassword(password)) {
 
 //                showProgress();
                 registerNewAccount(name, email, password, company);
+
+            } else if (!presenter.checkEmail(email)) {
+
+                Toast.makeText(context, context.getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
+
+            } else if (!presenter.checkPassword(password)) {
+
+                Toast.makeText(context, context.getString(R.string.invalid_password), Toast.LENGTH_SHORT).show();
+
             }
 
         } else {

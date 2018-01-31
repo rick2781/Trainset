@@ -24,25 +24,23 @@ import rick.trainset.Util.Injection;
 
 public class RegisterPresenter implements RegisterContract.Presenter {
 
-    Repository repository;
-
     @NonNull
     RegisterContract.View view;
+
+    Repository repository;
 
     public RegisterPresenter(@NonNull RegisterContract.View view) {
         this.view = view;
 
-        repository = new Repository(FirebaseData.getInstance());
-//        repository.getInstance(FirebaseData.getInstance()); TODO check why this is not working
-        Injection.getAuthInstance();
-        Injection.getDatabaseReferenceInstance();
+        Repository.getInstance(FirebaseData.getInstance());
+//        Injection.getAuthInstance();
+//        Injection.getDatabaseReferenceInstance();
     }
 
     // Check if email is valid
-    public boolean checkEmail(String email, Context context) {
+    public boolean checkEmail(String email) {
 
         if (!email.contains("@") || !email.contains(".com")) {
-            Toast.makeText(context, context.getString(R.string.invalid_email), Toast.LENGTH_SHORT).show();
 
             return false;
         }
@@ -51,10 +49,10 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     }
 
     // Check if password is valid
-    public boolean checkPassword(String password, Context context) {
+    public boolean checkPassword(String password) {
 
         if (password.length() < 6) {
-            Toast.makeText(context, context.getString(R.string.invalid_password), Toast.LENGTH_SHORT).show();
+
             return false;
         }
 
@@ -81,9 +79,11 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
     //Method that sends email verification to new user
     public void sendVerificationEmail() {
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
+
             user.sendEmailVerification();
         }
     }
