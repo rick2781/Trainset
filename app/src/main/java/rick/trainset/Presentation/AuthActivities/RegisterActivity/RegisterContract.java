@@ -13,6 +13,8 @@ public interface RegisterContract {
         void checkUserInput();
 
         void registerNewAccount(String name, String email, String password, String company);
+
+        void showProgress(boolean show);
     }
 
     interface Presenter {

@@ -42,16 +42,12 @@ public class RegisterPresenterTest {
     @Mock
     private RegisterContract.View registerContractView;
 
-    @Mock
-    Context context;
-
     @Before
     public void setupRegisterPresenter() {
 
         MockitoAnnotations.initMocks(this);
 
         presenter = new RegisterPresenter(registerContractView);
-        FirebaseApp.initializeApp(context);
     }
 
     @Test

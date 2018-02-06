@@ -57,4 +57,11 @@
         android:scaleType="centerCrop"
         android:src="@drawable/traing" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_centerInParent="true"/>
+
 </RelativeLayout>

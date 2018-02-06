@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +44,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
     @BindView(R.id.company)
     EditText etCompany;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     Context context = RegisterActivity.this;
 
@@ -84,7 +88,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
             if (presenter.checkEmail(email) || presenter.checkPassword(password)) {
 
-//                showProgress();
+                showProgress(true);
+
                 registerNewAccount(name, email, password, company);
 
             } else if (!presenter.checkEmail(email)) {
@@ -132,5 +137,24 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                         }
                     }
                 });
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+
+        if (show) {
+
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        showProgress(false);
     }
 }

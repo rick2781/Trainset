@@ -9,6 +9,8 @@ public interface LoginContract {
     interface View {
 
         void authUser();
+
+        void showProgress(boolean show);
     }
 
     interface Presenter {

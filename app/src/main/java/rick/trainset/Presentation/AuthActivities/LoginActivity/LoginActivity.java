@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +37,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @BindView(R.id.confirmButton)
     Button confirmButton;
+
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     LoginPresenter presenter;
 
@@ -67,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
                     if (presenter.checkEmail(email) && presenter.checkPassword(password)) {
 
-//                        showprogress()
+                        showProgress(true);
 
                         Injection.getAuthInstance().signInWithEmailAndPassword(email, password)
                                 .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -79,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                                             Toast.makeText(mContext, getString(R.string.auth_failed),
                                                     Toast.LENGTH_SHORT).show();
 
-//                                            hideProgress();
+                                            showProgress(false);
 
                                         } else {
 
@@ -124,5 +128,24 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public void showProgress(boolean show) {
+
+        if (show) {
+
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        showProgress(false);
     }
 }
