@@ -19,6 +19,7 @@ public class Injection {
         return FirebaseDatabaseHelper.getHelperInstance();
     }
 
+    //Firebase Database Reference - myRef
     public static DatabaseReference getDatabaseReferenceInstance() {
         return FirebaseDatabaseHelper.getHelperInstance().getDatabaseInstance().getReference();
     }

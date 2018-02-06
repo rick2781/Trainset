@@ -59,7 +59,6 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
             @Override
             public void onClick(View view) {
 
-
                 Intent intent = new Intent(context, RegisterActivity.class);
                 startActivity(intent);
             }

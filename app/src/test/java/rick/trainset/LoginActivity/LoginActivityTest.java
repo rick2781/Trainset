@@ -1,10 +1,4 @@
-package rick.trainset.RegisterActivity;
-
-import android.content.Context;
-
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+package rick.trainset.LoginActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,28 +7,18 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.ArrayList;
-
-import rick.trainset.Domain.Repository;
-import rick.trainset.Presentation.AuthActivities.RegisterActivity.RegisterActivity;
 import rick.trainset.Presentation.AuthActivities.RegisterActivity.RegisterContract;
 import rick.trainset.Presentation.AuthActivities.RegisterActivity.RegisterPresenter;
-import rick.trainset.Util.FirebaseAuthenticationHelper;
-import rick.trainset.Util.FirebaseDatabaseHelper;
-import rick.trainset.Util.Injection;
 
-import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
- * Created by Rick on 1/29/2018.
+ * Created by Rick on 2/5/2018.
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class RegisterPresenterTest {
+public class LoginActivityTest {
 
     @Mock
     private RegisterPresenter presenter;
@@ -42,16 +26,12 @@ public class RegisterPresenterTest {
     @Mock
     private RegisterContract.View registerContractView;
 
-    @Mock
-    Context context;
-
     @Before
     public void setupRegisterPresenter() {
 
         MockitoAnnotations.initMocks(this);
 
         presenter = new RegisterPresenter(registerContractView);
-        FirebaseApp.initializeApp(context);
     }
 
     @Test

@@ -14,23 +14,16 @@ public class Repository implements DataSource {
 
     private static Repository INSTANCE;
 
-    private final FirebaseData firebaseData;
-
-    public Repository(@NonNull FirebaseData firebaseData) {
-
-        this.firebaseData = firebaseData;
-    }
-
-    public static Repository getInstance(@NonNull FirebaseData firebaseData) {
+    public static Repository getInstance() {
 
         if (INSTANCE == null) {
-            INSTANCE = new Repository(firebaseData);
+            INSTANCE = new Repository();
         }
 
         return INSTANCE;
     }
 
     public void addNewUser(User user) {
-        firebaseData.addNewUser(user);
+        FirebaseData.addNewUser(user);
     }
 }

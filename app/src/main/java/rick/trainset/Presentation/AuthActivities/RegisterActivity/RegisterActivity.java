@@ -56,10 +56,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         ButterKnife.bind(this);
 
         presenter = new RegisterPresenter(this);
-
-        registerNewUserListener();
     }
 
+    @Override
     public void registerNewUserListener() {
 
         confirm.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     // Check user input and pass data for the user creation
+    @Override
     public void checkUserInput() {
 
         String name = etName.getText().toString();
@@ -104,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     // Create new user to Firebase Authentication System
+    @Override
     public void registerNewAccount(final String name, final String email, String password, final String company) {
 
         Injection.getAuthInstance().createUserWithEmailAndPassword(email, password)

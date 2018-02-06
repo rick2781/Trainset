@@ -55,6 +55,5 @@ public class FirebaseDatabaseHelper {
                         Log.d(TAG, "Added new user entry successfully: " + userID);
                     }
                 });
-
     }
 }

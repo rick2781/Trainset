@@ -27,14 +27,13 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @NonNull
     RegisterContract.View view;
 
-    Repository repository;
-
     public RegisterPresenter(@NonNull RegisterContract.View view) {
         this.view = view;
 
-        Repository.getInstance(FirebaseData.getInstance());
-//        Injection.getAuthInstance();
-//        Injection.getDatabaseReferenceInstance();
+        view.registerNewUserListener();
+
+        Injection.getAuthInstance();
+        Injection.getDatabaseReferenceInstance();
     }
 
     // Check if email is valid
@@ -74,7 +73,7 @@ public class RegisterPresenter implements RegisterContract.Presenter {
 
         User user = new User(name, email, company);
 
-        repository.addNewUser(user);
+        Repository.getInstance().addNewUser(user);
     }
 
     //Method that sends email verification to new user

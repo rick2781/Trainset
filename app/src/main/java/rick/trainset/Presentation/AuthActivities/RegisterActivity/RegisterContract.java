@@ -8,7 +8,11 @@ public interface RegisterContract {
 
     interface View {
 
+        void registerNewUserListener();
 
+        void checkUserInput();
+
+        void registerNewAccount(String name, String email, String password, String company);
     }
 
     interface Presenter {

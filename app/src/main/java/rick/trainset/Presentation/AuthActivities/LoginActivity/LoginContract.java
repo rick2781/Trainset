@@ -8,6 +8,7 @@ public interface LoginContract {
 
     interface View {
 
+        void authUser();
     }
 
     interface Presenter {

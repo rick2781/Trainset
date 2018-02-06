@@ -25,9 +25,7 @@ public class FirebaseData implements DataSource {
         return null;
     }
 
-    public void addNewUser(User user){
+    public static void addNewUser(User user){
         Injection.getDatabaseHelperInstance().addNewUser(user);
     }
-
-
 }
