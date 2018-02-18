@@ -21,11 +21,12 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        Injection.getAuthInstance().signOut();
+        Injection.getAuthInstance().signOut();
         checkCurrentUser();
     }
 
     public void checkCurrentUser() {
+
         FirebaseUser user = Injection.getAuthInstance().getCurrentUser();
 
         if (user == null) {

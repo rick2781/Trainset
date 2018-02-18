@@ -123,6 +123,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                             Toast.makeText(context, getString(R.string.account_creation_fail),
                                     Toast.LENGTH_SHORT).show();
 
+                            showProgress(false);
+
                         } else if (task.isSuccessful()) {
 
                             presenter.sendVerificationEmail();

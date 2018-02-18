@@ -64,9 +64,6 @@ public class RegisterActivityTest {
 
         SystemClock.sleep(2000);
 
-        intended(allOf(
-                hasComponent(hasShortClassName(".SignInActivity")),
-                toPackage("rick.trainset")
-        ));
+        intended(toPackage("rick.trainset"));
     }
 }
