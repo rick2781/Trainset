@@ -93,9 +93,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
                                                     Intent intent = new Intent(mContext, HomeActivity.class);
                                                     startActivity(intent);
+
                                                 } else {
 
                                                     Toast.makeText(mContext, getString(R.string.email_not_verified), Toast.LENGTH_SHORT).show();
+
+                                                    showProgress(false);
                                                 }
 
                                             } catch (NullPointerException e) {
@@ -121,13 +124,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
                 }
             }
         });
-
-        if (Injection.getAuthInstance().getInstance().getCurrentUser() != null) {
-
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     @Override

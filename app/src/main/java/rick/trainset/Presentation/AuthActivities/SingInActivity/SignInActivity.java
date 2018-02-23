@@ -12,7 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rick.trainset.Presentation.AuthActivities.LoginActivity.LoginActivity;
 import rick.trainset.Presentation.AuthActivities.RegisterActivity.RegisterActivity;
+import rick.trainset.Presentation.HomeActivity.HomeActivity;
 import rick.trainset.R;
+import rick.trainset.Util.Injection;
 
 /**
  * Created by Rick on 1/27/2018.
@@ -37,6 +39,13 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
         goLogin();
         goRegister();
+
+        if (Injection.getAuthInstance().getCurrentUser() != null) {
+
+            Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     //Takes to Login Screen

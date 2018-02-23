@@ -27,7 +27,8 @@
             android:layout_alignParentStart="true"
             android:background="@drawable/email"
             android:hint="email"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/name"
@@ -37,7 +38,8 @@
             android:layout_centerVertical="true"
             android:background="@drawable/email"
             android:hint="name"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="textPersonName"/>
 
         <EditText
             android:id="@+id/password"
@@ -47,7 +49,8 @@
             android:layout_alignParentStart="true"
             android:background="@drawable/email"
             android:hint="password"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="textPassword"/>
 
         <EditText
             android:id="@+id/company"
@@ -57,7 +60,8 @@
             android:layout_below="@+id/name"
             android:background="@drawable/email"
             android:hint="company"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="text"/>
 
     </LinearLayout>
 

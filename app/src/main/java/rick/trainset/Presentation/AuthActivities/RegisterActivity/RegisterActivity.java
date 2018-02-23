@@ -147,6 +147,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         if (show) {
 
             progressBar.setVisibility(View.VISIBLE);
+
         } else {
 
             progressBar.setVisibility(View.GONE);

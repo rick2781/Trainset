@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/email"
             android:hint="email"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/password"
@@ -33,7 +34,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/email"
             android:hint="password"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="textPassword"/>
 
     </LinearLayout>
 

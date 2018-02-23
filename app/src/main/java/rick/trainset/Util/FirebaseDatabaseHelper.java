@@ -1,6 +1,7 @@
 package rick.trainset.Util;
 
-import android.support.annotation.NonNull;
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -10,7 +11,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import rick.trainset.Domain.Model.User;
 
@@ -100,22 +105,56 @@ public class FirebaseDatabaseHelper {
                 .setValue(user.getName());
     }
 
-    public void getUserCompany() {
+    public void getCategories() {
 
-        String userID = Injection.getAuthInstance().getCurrentUser().getUid();
+        if (Injection.getAuthInstance().getCurrentUser() != null) {
 
-        myRef.child("user")
-                .child(userID)
-                .child("company")
+            String userID = Injection.getAuthInstance().getCurrentUser().getUid();
+
+            myRef.child("user")
+                    .child(userID)
+                    .child("company")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.getValue() != null) {
+
+                                String company = dataSnapshot.getValue().toString();
+
+                                getCategoriesData(company);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        }
+    }
+
+    public void getCategoriesData(String company) {
+
+       final ArrayList<String> categoryList = new ArrayList<>();
+
+        myRef.child("company")
+                .child(company)
+                .child("content_database_ref")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if (dataSnapshot != null) {
+                        for (DataSnapshot savedCategories : dataSnapshot.getChildren()) {
 
-                            String company = dataSnapshot.getValue().toString();
+                            String categories = savedCategories.getValue().toString();
+
+                            categoryList.add(categories);
+
                         }
 
+                        EventBus.getDefault().post(categoryList);
                     }
 
                     @Override
@@ -125,30 +164,17 @@ public class FirebaseDatabaseHelper {
                 });
     }
 
-//    public void getCategories(String company) {
-//
-//        myRef.child("company")
-//                .child(company)
-//                .
-//
-//
-//    }
-
     public void initDatabaseContent(User user) {
 
-        ArrayList<String> categories = new ArrayList<>();
+        Map<String, String> categories = new HashMap<>();
 
-        categories.add("Espresso");
-        categories.add("Bread n butter");
+        categories.put("Espresso", "Espresso");
+        categories.put("Bread n butter", "Bread n butter");
 
         addNewCategory(categories, user.getCompany());
     }
 
-    private void addNewCategory(ArrayList category, String company) {
-
-//        ArrayList<String> categoryList = new ArrayList<>();
-
-//        categoryList.addAll(category);
+    private void addNewCategory(Map<String, String> category, String company) {
 
             myRef.child("company")
                     .child(company)

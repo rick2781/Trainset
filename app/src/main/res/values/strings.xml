@@ -10,4 +10,10 @@
     <string name="account_creation_success"> Your account has been successfully created!\n Please check your email in order to confirm your account.</string>
     <string name="email_not_verified"> You account is not verified.\n Check your email to verify it!</string>
 
+    <!-- Database Strings -->
+    <string name="user">user</string>
+    <string name="company">company</string>
+    <string name="workers">workers</string>
+    <string name="content_database">content_database_ref</string>
+
 </resources>
