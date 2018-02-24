@@ -166,19 +166,46 @@ public class FirebaseDatabaseHelper {
 
     public void initDatabaseContent(User user) {
 
-        Map<String, String> categories = new HashMap<>();
-
-        categories.put("Espresso", "Espresso");
-        categories.put("Bread n butter", "Bread n butter");
-
-        addNewCategory(categories, user.getCompany());
+        addNewCategory("Espresso", user.getCompany());
+        addNewCategory("Bread n butter", user.getCompany());
     }
 
-    private void addNewCategory(Map<String, String> category, String company) {
+    public void addNewCategory(String category, String company) {
 
             myRef.child("company")
                     .child(company)
                     .child("content_database_ref")
+                    .child(category)
                     .setValue(category);
+    }
+
+    public void getUserCompany() {
+
+        if (Injection.getAuthInstance().getCurrentUser() != null) {
+
+            String userID = Injection.getAuthInstance().getCurrentUser().getUid();
+
+            myRef.child("user")
+                    .child(userID)
+                    .child("company")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.getValue() != null) {
+
+                                String company = dataSnapshot.getValue().toString();
+
+                                EventBus.getDefault().post(company);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+        }
     }
 }
